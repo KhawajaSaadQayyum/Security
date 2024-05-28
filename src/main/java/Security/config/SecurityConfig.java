@@ -1,5 +1,6 @@
 package Security.config;
 
+import Security.controller.AuthenticationSuccessHandler;
 import Security.model.MyUserDetailService;
 import jakarta.security.auth.message.config.AuthConfigProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,9 @@ public class SecurityConfig {
                     })
                     .formLogin(httpSecurityFormLoginConfigurer ->
                     {
-                        httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
+                        httpSecurityFormLoginConfigurer.loginPage("/login")
+                                .successHandler(new AuthenticationSuccessHandler())
+                                .permitAll();
                     })
                     .build();
         } catch (Exception e) {
